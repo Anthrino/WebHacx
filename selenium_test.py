@@ -70,7 +70,16 @@ def custom_website_test(browser, url, mode):
 
 	browser.get(url)
 	
-	# if mode == 'login':
+	if mode == 'login':
+
+		input_field = browser.find_element_by_name('username')
+		input_field.send_keys('stinson@gnb.com')
+
+		input_field = browser.find_element_by_name('password')
+		input_field.send_keys('legendary')
+
+		b_submit = browser.find_element_by_id("loginfrm")
+		b_submit.submit()
 
 
 	if mode == 'signup':
@@ -93,17 +102,29 @@ def custom_website_test(browser, url, mode):
 		input_field = browser.find_element_by_name('confirmpassword')
 		input_field.send_keys('legendary')
 
-		b_submit = browser.find_element_by_xpath("//button[@type='submit']")
-		b_submit.click()
+		b_submit = browser.find_element_by_id("headersignupform")
+		b_submit.submit()
+
+
+	if mode == 'nav':
+
+		option = input('Entered desired tab name: ')
+
+		b_selection = browser.find_element_by_xpath("//a[@class='loader']/span[.='"+option+"  ']/..")
+		b_selection.click()
 
 
 if __name__ == '__main__':
 
+	# browser = webdriver.Chrome()
 	browser = webdriver.Firefox()
+
 
 	# browser_open('www.google.com')
 	# fb_login_check(browser, 'jerinjohn101@gmail.com', '...')
 
 	# google_search_results(browser, 'Urus', 10)
 
-	custom_website_test(browser, 'http://www.phptravels.net/register', 'signup')
+	# custom_website_test(browser, 'http://www.phptravels.net/register', 'signup')
+	# custom_website_test(browser, 'http://www.phptravels.net/login', 'login')
+	custom_website_test(browser, 'http://www.phptravels.net', 'nav')
